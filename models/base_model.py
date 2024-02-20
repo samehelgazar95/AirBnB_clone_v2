@@ -18,6 +18,7 @@ class BaseModel:
     """
     DATE_FORMAT = '%Y-%m-%dT%H:%M:%S.%f'
     storage_type = getenv('HBNB_TYPE_STORAGE')
+
     if storage_type == 'db':
         id = Column(String(60), nullable=False, primary_key=True)
         created_at = Column(DateTime, default=datetime.utcnow(), nullable=False)

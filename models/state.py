@@ -22,7 +22,10 @@ class State(BaseModel, Base):
     else:
         name: str = ''
         
-        
+    def __init__(self, *args, **kwargs):
+        """initializes state"""
+        super().__init__(*args, **kwargs)
+
     if storage_type != 'db':
         @property
         def cities(self):
