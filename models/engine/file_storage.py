@@ -29,7 +29,15 @@ class FileStorage:
 
     def all(self):
         """Simple function returns the private __objects"""
-        return FileStorage.__objects
+        if cls:
+            temp = {}
+            for key, val in FileStorage.__objects.items():
+                key_name = str(key.split('.')[0])
+                if cls.__name__ == key_name:
+                    temp[key] = val
+            return temp
+        else:
+            return FileStorage.__objects
 
     def new(self, obj):
         """Sets in __objects the obj with key <obj class name>.id"""
