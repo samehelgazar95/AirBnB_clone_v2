@@ -2,7 +2,7 @@
 """The console of HBnB project,
 to control the models and the storage engine"""
 import cmd
-from models import storage     # Weather DBStorage or FileStorage 
+from models.__init__ import storage     # Weather DBStorage or FileStorage 
 from models.base_model import BaseModel
 from models.state import State
 from models.city import City

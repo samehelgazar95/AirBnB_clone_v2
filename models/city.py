@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """City class model"""
+from os import getenv
+from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
-from models.base_model import BaseModel, Base
-from models.__init__ import storage_type
 
 
 class City(BaseModel, Base):
@@ -13,7 +13,8 @@ class City(BaseModel, Base):
             state_id: State id
             name: City name
         """
-
+    storage_type = getenv('HBNB_TYPE_STORAGE')
+        
     if storage_type == 'db':
         __tablename__ = 'cities'
         name = Column(String(128), nullable=False)
@@ -22,6 +23,4 @@ class City(BaseModel, Base):
     else:
         state_id: str = ''
         name: str = ''
-    
-    
         

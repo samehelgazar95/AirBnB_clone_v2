@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """State class model"""
+from os import getenv
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
-from models.__init__ import storage_type
 from models.city import City
 
 
@@ -13,6 +13,7 @@ class State(BaseModel, Base):
         Arguments:
             name: State name
         """
+    storage_type = getenv('HBNB_TYPE_STORAGE')
 
     if storage_type == 'db':
         __tablename__ = 'states'
@@ -20,8 +21,7 @@ class State(BaseModel, Base):
         cities = relationship('City', backref='state', cascade='all, delete, delete-orphan')
     else:
         name: str = ''
-    
-    
+        
         
     if storage_type != 'db':
         @property

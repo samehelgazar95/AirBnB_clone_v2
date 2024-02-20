@@ -3,13 +3,13 @@
 as a parent class for other models"""
 import uuid
 from datetime import datetime
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, String, DateTime
-from models.__init__ import storage_type
+# from sqlalchemy.ext.declarative import declarative_base
+# from sqlalchemy import Column, String, DateTime
+import models
 
 
 
-Base = declarative_base()
+Base = object #declarative_base()
 
 
 class BaseModel:
@@ -19,10 +19,10 @@ class BaseModel:
     """
 
     DATE_FORMAT = '%Y-%m-%dT%H:%M:%S.%f'
-    if storage_type == 'db':
-        id = Column(String(60), nullable=False, primary_key=True)
-        created_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
-        updated_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
+    # if storage_type == 'db':
+        # id = Column(String(60), nullable=False, primary_key=True)
+        # created_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
+        # updated_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
 
     def __init__(self, *args, **kwargs):
         """Init method instantiated with 3 attrs"""
