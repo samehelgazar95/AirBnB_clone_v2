@@ -19,6 +19,11 @@ class HBNBCommand(cmd.Cmd):
     """
 
     flag = 'error'
+    models_map = {
+                'BaseModel': BaseModel, 'Amenity': Amenity,
+                'City': City, 'Place': Place, 'Review': Review,
+                'State': State, 'User': User
+            }
 
     def __init__(self, completeKey='tab', stdin=None, stdout=None):
         """HBNBCommand Constructor"""
@@ -98,13 +103,21 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """Creating a new instance and save it"""
-        if self.check_line(line) == HBNBCommand.flag:
+        line = line.split(' ')
+        if self.check_line(line[0]) == HBNBCommand.flag:
             return
-        if self.check_name(line) == HBNBCommand.flag:
+        if self.check_name(line[0]) == HBNBCommand.flag:
             return
-        my_model = FileStorage.models_map[line]()
-        my_model.save()
-        print(my_model.id)
+        new_instance = HBNBCommand.models_map[line[0]]()
+        
+        if len(line) > 1:
+            for attr in line[1:]:
+                key, val = attr.split('=', 1)
+                setattr(new_instance, key, self.cast_attr(val))
+        
+        new_instance.save()
+        print(new_instance.id)
+        new_instance.save()
 
     def do_show(self, line):
         """Printing the string representation"""
@@ -245,7 +258,8 @@ class HBNBCommand(cmd.Cmd):
                 return float(var)
             except ValueError:
                 var = var.strip(' \'"')
-                return str(var)
+                new_var = var.replace('"', '').replace('_', ' ')
+                return str(new_var)
 
     def check_line(self, line):
         """Checking if the use didnot with the class name"""
@@ -255,7 +269,7 @@ class HBNBCommand(cmd.Cmd):
 
     def check_name(self, name):
         """Checking if the use is writing the class name wrongly"""
-        if name not in FileStorage.models_map.keys():
+        if name not in HBNBCommand.models_map.keys():
             print('** class doesn\'t exist **')
             return HBNBCommand.flag
 
