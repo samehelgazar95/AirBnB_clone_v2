@@ -1,15 +1,14 @@
 #!/usr/bin/python3
 """BaseModel class
 as a parent class for other models"""
+from os import getenv
 import uuid
 from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, DateTime
-import models
 
 
-
-Base = object #declarative_base()
+Base = declarative_base()
 
 
 class BaseModel:
@@ -17,8 +16,8 @@ class BaseModel:
         Arguments:
         DATE_FORMAT: The creating and updating date format
     """
-
     DATE_FORMAT = '%Y-%m-%dT%H:%M:%S.%f'
+    storage_type = getenv('HBNB_TYPE_STORAGE')
     if storage_type == 'db':
         id = Column(String(60), nullable=False, primary_key=True)
         created_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
