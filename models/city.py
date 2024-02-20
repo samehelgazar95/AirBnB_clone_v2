@@ -13,7 +13,7 @@ class City(BaseModel, Base):
             name: City name
         """
     storage_type = getenv('HBNB_TYPE_STORAGE')
-        
+
     if storage_type == 'db':
         __tablename__ = 'cities'
         name = Column(String(128), nullable=False)
@@ -21,7 +21,7 @@ class City(BaseModel, Base):
     else:
         state_id: str = ''
         name: str = ''
-        
+
     def __init__(self, *args, **kwargs):
         """initializes city"""
         super().__init__(*args, **kwargs)

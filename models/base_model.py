@@ -21,8 +21,14 @@ class BaseModel:
 
     if storage_type == 'db':
         id = Column(String(60), nullable=False, primary_key=True)
-        created_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
-        updated_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
+        created_at = Column(
+            DateTime,
+            default=datetime.utcnow(),
+            nullable=False)
+        updated_at = Column(
+            DateTime,
+            default=datetime.utcnow(),
+            nullable=False)
 
     def __init__(self, *args, **kwargs):
         """Init method instantiated with 3 attrs"""
@@ -47,15 +53,16 @@ class BaseModel:
     def save(self):
         """Updating the updated_at attr to current time
             # Importing the storage here
-            # to avoid the circular import 
+            # to avoid the circular import
         """
         from models import storage
         self.updated_at = datetime.now()
         storage.new(self)
         storage.save()
-        
+
     def delete(self):
-        """Deleting current instance by calling the delete method from storage"""
+        """Deleting current instance by
+        calling the delete method from storage"""
         from models import storage
         storage.delete(self)
 
