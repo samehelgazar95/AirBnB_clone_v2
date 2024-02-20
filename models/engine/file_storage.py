@@ -27,7 +27,7 @@ class FileStorage:
                 'State': State, 'User': User
             }
 
-    def all(self):
+    def all(self, cls=None):
         """Simple function returns the private __objects"""
         if cls:
             temp = {}
