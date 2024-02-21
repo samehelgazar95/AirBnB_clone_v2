@@ -37,7 +37,7 @@ class DBStorage():
 
         print('>>> db_storage.py ----- __init__ <<<')
         print(db_url)
-        self.__engine = create_engine(db_url, pool_pre_ping=True)
+        DBStorage.__engine = create_engine(db_url, pool_pre_ping=True)
         if getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
         
