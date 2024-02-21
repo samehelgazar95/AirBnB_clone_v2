@@ -1,6 +1,8 @@
 #!/usr/bin/python3
-"""The console of HBnB project,
-to control the models and the storage engine"""
+"""
+The console of HBnB project,
+to control the models and the storage engine
+"""
 import cmd
 from models.__init__ import storage
 from models.base_model import BaseModel

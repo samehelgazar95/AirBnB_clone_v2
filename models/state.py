@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-"""State class model"""
+"""
+State class model
+State class model
+"""
 from os import getenv
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship

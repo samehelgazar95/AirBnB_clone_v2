@@ -1,6 +1,8 @@
 #!/usr/bin/python3
-"""The centeralized storage for the application
-almost followed the singleton pattern"""
+"""
+The centeralized storage for the application
+almost followed the singleton pattern
+"""
 import json
 import os
 from models.base_model import BaseModel

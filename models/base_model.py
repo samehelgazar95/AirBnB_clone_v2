@@ -1,6 +1,8 @@
 #!/usr/bin/python3
-"""BaseModel class
-as a parent class for other models"""
+"""
+BaseModel class
+as a parent class for other models
+"""
 from os import getenv
 import uuid
 from datetime import datetime
