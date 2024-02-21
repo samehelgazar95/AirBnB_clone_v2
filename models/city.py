@@ -18,15 +18,18 @@ class City(BaseModel, Base):
     storage_type = getenv('HBNB_TYPE_STORAGE')
 
     if storage_type == 'db':
+        print('>>> City table db <<<')
         __tablename__ = 'cities'
         name = Column(String(128), nullable=False)
         state_id = Column(String(60),
                           ForeignKey('states.id'),
                           nullable=False)
     else:
+        print('>>> City attr file_storage <<<')
         state_id: str = ''
         name: str = ''
 
     def __init__(self, *args, **kwargs):
         """initializes city"""
+        print('>>> City __init__ file_storage <<<')
         super().__init__(*args, **kwargs)

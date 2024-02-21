@@ -12,7 +12,9 @@ if storage_type == 'db':
     from models.engine.db_storage import DBStorage
     storage = DBStorage()
     storage.reload()
+    print('>>> models.__init__ db <<<')
 else:
     from models.engine.file_storage import FileStorage
     storage = FileStorage()
     storage.reload()
+    print('>>> models.__init__ file_storage <<<')

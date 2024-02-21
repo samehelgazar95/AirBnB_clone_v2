@@ -35,9 +35,13 @@ class DBStorage():
         db_url = '{}+{}://{}:{}@{}/{}'.format(dialect,driver,
                                               user,password,host,db_name)
 
+        print('>>> db_storage.py ----- __init__ <<<')
+        print(db_url)
         DBStorage.__engine = create_engine(db_url, pool_pre_ping=True)
         if getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
+        
+
 
     def all(self, cls=None):
         """
@@ -47,6 +51,7 @@ class DBStorage():
         Returns:
             dict: A dictionary containing objects indexed by their ID.
         """
+        print('>>> db_storage.py ----- all <<<')
         objs_list = []
         objs_dict = {}
         if cls:
@@ -89,6 +94,7 @@ class DBStorage():
         which will handle closing the session automatically
         and make the session is thread-safe
         """
+        print('>>> db_storage.py ----- reloaded <<<')
         Base.metadata.create_all(DBStorage.__engine)
         session_factory = sessionmaker(DBStorage.__engine,
                                        expire_on_commit=False)
