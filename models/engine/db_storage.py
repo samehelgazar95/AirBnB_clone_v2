@@ -11,7 +11,6 @@ class DBStorage():
     __session = None
 
     def __init__(self):
-        pass
         """DBStorage Constructor
 
         getting the need variables from the environment to create
@@ -55,7 +54,6 @@ class DBStorage():
         return objs_dict
 
     def new(self, obj):
-        pass
         """Add a new object to the current database session.
         Args:
             obj (BaseModel): The object to be added.
@@ -67,7 +65,6 @@ class DBStorage():
         self.__session.commit()
 
     def delete(self, obj=None):
-        pass
         """Delete an object from the database session.
         Args:
             obj (BaseModel, optional): The object to be deleted.
