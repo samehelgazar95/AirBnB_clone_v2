@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-""" DatabBase Storage using SQLAlchemy """
+""" DataBase Storage using SQLAlchemy
+    DataBase Storage using SQLAlchemy
+"""
 from os import getenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
