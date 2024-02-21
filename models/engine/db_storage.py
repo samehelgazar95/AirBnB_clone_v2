@@ -9,6 +9,11 @@ from models.base_model import Base
 
 
 class DBStorage():
+    """Manipulate the DB that's storing data
+        Arguments:
+            __engine: engine var to start the db
+            __session: Session that's used to manipulate db
+    """
     __engine = None
     __session = None
 
