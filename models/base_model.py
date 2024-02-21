@@ -8,8 +8,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, DateTime
 
 
-Base = object#declarative_base()
-
+storage_type = getenv('HBNB_TYPE_STORAGE')
+if storage_type == 'db':
+    Base = declarative_base()
 
 class BaseModel:
     """The BaseModel class
@@ -17,19 +18,18 @@ class BaseModel:
         DATE_FORMAT: The creating and updating date format
     """
     DATE_FORMAT = '%Y-%m-%dT%H:%M:%S.%f'
-    storage_type = getenv('HBNB_TYPE_STORAGE')
     key_to_del = '_sa_instance_state'
 
-    # if storage_type == 'db':
-    #     id = Column(String(60), nullable=False, primary_key=True)
-    #     created_at = Column(
-    #         DateTime,
-    #         default=datetime.utcnow(),
-    #         nullable=False)
-    #     updated_at = Column(
-    #         DateTime,
-    #         default=datetime.utcnow(),
-    #         nullable=False)
+    if storage_type == 'db':
+        id = Column(String(60), nullable=False, primary_key=True)
+        created_at = Column(
+            DateTime,
+            default=datetime.utcnow(),
+            nullable=False)
+        updated_at = Column(
+            DateTime,
+            default=datetime.utcnow(),
+            nullable=False)
 
     def __init__(self, *args, **kwargs):
         """Init method instantiated with 3 attrs"""
