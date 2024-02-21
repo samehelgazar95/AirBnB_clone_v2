@@ -6,10 +6,10 @@ import unittest
 import json
 from unittest.mock import patch
 from datetime import datetime
-from models.engine.file_storage import FileStorage
+from models.__init__ import storage
 from console import HBNBCommand
 from models import storage
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
 from models.state import State
 from models.city import City
 from models.place import Place
@@ -27,9 +27,9 @@ class TestConsole(unittest.TestCase):
 
     def tearDown(self):
         '''Cleans up after each test_method.'''
-        FileStorage._FileStorage__objects = {}
-        if os.path.exists(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
+        storage._FileStorage__objects = {}
+        if os.path.exists(storage._FileStorage__file_path):
+            os.remove(storage._FileStorage__file_path)
 
     def test_console_methods(self):
         with patch('sys.stdout', new=StringIO()) as f:
@@ -101,9 +101,9 @@ class TestConsole_BaseModel(unittest.TestCase):
 
     def tearDown(self):
         '''Cleans up after each test_method.'''
-        FileStorage._FileStorage__objects = {}
-        if os.path.exists(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
+        storage._FileStorage__objects = {}
+        if os.path.exists(storage._FileStorage__file_path):
+            os.remove(storage._FileStorage__file_path)
 
     def test_Console_create(self):
         with patch('sys.stdout', new=StringIO()) as f:
@@ -151,9 +151,9 @@ class TestConsole_state(unittest.TestCase):
 
     def tearDown(self):
         '''Cleans up after each test_method.'''
-        FileStorage._FileStorage__objects = {}
-        if os.path.exists(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
+        storage._FileStorage__objects = {}
+        if os.path.exists(storage._FileStorage__file_path):
+            os.remove(storage._FileStorage__file_path)
 
     def test_Console_create(self):
         with patch('sys.stdout', new=StringIO()) as f:
@@ -200,9 +200,9 @@ class TestConsole_city(unittest.TestCase):
 
     def tearDown(self):
         '''Cleans up after each test_method.'''
-        FileStorage._FileStorage__objects = {}
-        if os.path.exists(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
+        storage._FileStorage__objects = {}
+        if os.path.exists(storage._FileStorage__file_path):
+            os.remove(storage._FileStorage__file_path)
 
     def test_Console_create(self):
         with patch('sys.stdout', new=StringIO()) as f:
@@ -249,9 +249,9 @@ class TestConsole_place(unittest.TestCase):
 
     def tearDown(self):
         '''Cleans up after each test_method.'''
-        FileStorage._FileStorage__objects = {}
-        if os.path.exists(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
+        storage._FileStorage__objects = {}
+        if os.path.exists(storage._FileStorage__file_path):
+            os.remove(storage._FileStorage__file_path)
 
     def test_Console_create(self):
         with patch('sys.stdout', new=StringIO()) as f:
@@ -298,9 +298,9 @@ class TestConsole_amenity(unittest.TestCase):
 
     def tearDown(self):
         '''Cleans up after each test_method.'''
-        FileStorage._FileStorage__objects = {}
-        if os.path.exists(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
+        storage._FileStorage__objects = {}
+        if os.path.exists(storage._FileStorage__file_path):
+            os.remove(storage._FileStorage__file_path)
 
     def test_Console_create(self):
         with patch('sys.stdout', new=StringIO()) as f:
@@ -348,9 +348,9 @@ class TestConsole_user(unittest.TestCase):
 
     def tearDown(self):
         '''Cleans up after each test_method.'''
-        FileStorage._FileStorage__objects = {}
-        if os.path.exists(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
+        storage._FileStorage__objects = {}
+        if os.path.exists(storage._FileStorage__file_path):
+            os.remove(storage._FileStorage__file_path)
 
     def test_Console_create(self):
         with patch('sys.stdout', new=StringIO()) as f:
@@ -397,9 +397,9 @@ class TestConsole_review(unittest.TestCase):
 
     def tearDown(self):
         '''Cleans up after each test_method.'''
-        FileStorage._FileStorage__objects = {}
-        if os.path.exists(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
+        storage._FileStorage__objects = {}
+        if os.path.exists(storage._FileStorage__file_path):
+            os.remove(storage._FileStorage__file_path)
 
     def test_Console_create(self):
         with patch('sys.stdout', new=StringIO()) as f:
