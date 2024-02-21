@@ -30,7 +30,6 @@ class BaseModel:
 
     if storage_type == 'db':
         print('base_model.py BaseMode table created')
-        print('base_model.py BaseMode table created')
         id = Column(String(60), nullable=False,
                     primary_key=True)
         created_at = Column(DateTime, default=datetime.utcnow(),

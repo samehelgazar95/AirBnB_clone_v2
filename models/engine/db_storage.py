@@ -95,7 +95,7 @@ class DBStorage():
         and make the session is thread-safe
         """
         print('>>> db_storage.py ----- reloaded <<<')
-        Base.metadata.create_all(DBStorage.__engine)
-        session_factory = sessionmaker(DBStorage.__engine,
-                                       expire_on_commit=False)
-        self.__session = scoped_session(session_factory)
+        Base.metadata.create_all(self.__engine)
+        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        session_factory_scope = scoped_session(session_factory)
+        self.__session = session_factory_scope()
