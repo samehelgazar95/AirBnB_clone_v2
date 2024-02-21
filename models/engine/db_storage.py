@@ -14,8 +14,11 @@ class DBStorage():
 
     def __init__(self):
         """DBStorage Constructor
+
         getting the need variables from the environment to create
-        the database url that's need for creating the database engine"""
+        the database url that's need for creating the database engine
+        and drops all tables if the environment is set to 'test'
+        """
         dialect = 'mysql'
         driver = 'mysqldb'
         user = getenv('HBNB_MYSQL_USER')
@@ -31,8 +34,12 @@ class DBStorage():
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """Fetching records of all tables
-        or based on a specific table name"""
+        """Get all objects from the database.
+        If a class is specified, return all objects of that class.
+        Otherwise, return all objects from all classes.
+        Returns:
+            dict: A dictionary containing objects indexed by their ID.
+        """
         objs_list = []
         objs_dict = {}
         if cls:
@@ -49,16 +56,21 @@ class DBStorage():
         return objs_dict
 
     def new(self, obj):
-        """Creating new record"""
+        """Add a new object to the current database session.
+        Args:
+            obj (BaseModel): The object to be added.
+        """
         self.__session.add(obj)
 
     def save(self):
-        """Saving or commitng a new record
-        to a specific table"""
+        """Commit changes to the current database session."""
         self.__session.commit()
 
     def delete(self, obj=None):
-        """Removing table or object"""
+        """Delete an object from the database session.
+        Args:
+            obj (BaseModel, optional): The object to be deleted.
+        """
         if obj:
             self.__session.delete(obj)
 
