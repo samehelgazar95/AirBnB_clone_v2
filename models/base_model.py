@@ -11,7 +11,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 
 storage_type = getenv('HBNB_TYPE_STORAGE')
-Base = declarative_base()
+Base = declarative_base() if storage_type == 'db' else object
 
 
 class BaseModel:
