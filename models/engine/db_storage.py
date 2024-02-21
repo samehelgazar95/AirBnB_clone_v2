@@ -56,9 +56,8 @@ class DBStorage():
                 data = self.__session.query(curr_cls).all()
                 objs_list.extend(data)
         for obj in objs_list:
-            key = '{}.{}'.format(
-                    obj.to_dict()['__class__'],
-                    obj.to_dict()['id'])
+            key = '{}.{}'.format(obj.to_dict()['__class__'],
+                                 obj.to_dict()['id'])
             objs_dict[key] = obj
         return objs_dict
 
