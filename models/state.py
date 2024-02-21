@@ -11,10 +11,11 @@ from models.city import City
 
 
 class State(BaseModel, Base):
-    """State class that inherits from BaseModel class
-        Arguments:
-            name: State name
-        """
+    """
+    State class that inherits from BaseModel class
+    Arguments:
+        name: State name
+    """
     storage_type = getenv('HBNB_TYPE_STORAGE')
 
     if storage_type == 'db':

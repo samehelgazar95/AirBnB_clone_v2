@@ -15,7 +15,8 @@ Base = declarative_base() if storage_type == 'db' else object
 
 
 class BaseModel:
-    """The BaseModel class
+    """
+    The BaseModel class
         Arguments:
         DATE_FORMAT: The creating and updating date format
     """
@@ -23,15 +24,15 @@ class BaseModel:
     key_to_del = '_sa_instance_state'
 
     if storage_type == 'db':
-        id = Column(String(60), nullable=False, primary_key=True)
-        created_at = Column(
-            DateTime,
-            default=datetime.utcnow(),
-            nullable=False)
-        updated_at = Column(
-            DateTime,
-            default=datetime.utcnow(),
-            nullable=False)
+        id = Column(String(60),
+                    nullable=False,
+                    primary_key=True)
+        created_at = Column(DateTime,
+                            default=datetime.utcnow(),
+                            nullable=False)
+        updated_at = Column(DateTime,
+                            default=datetime.utcnow(),
+                            nullable=False)
 
     def __init__(self, *args, **kwargs):
         """Init method instantiated with 3 attrs"""

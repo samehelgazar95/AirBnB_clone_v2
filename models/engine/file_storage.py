@@ -15,19 +15,18 @@ from models.review import Review
 
 
 class FileStorage:
-    """Manipulate the file that's storing data
-        Arguments:
-            __file_path: to store the JSON format
-            __objects: {"ClassName.id": Object, "ClassName.id": Object}
-            models_map: mapping the models for easy accessing
+    """
+    Manipulate the file that's storing data
+    Arguments:
+        __file_path: to store the JSON format
+        __objects: {"ClassName.id": Object, "ClassName.id": Object}
+        models_map: mapping the models for easy accessing
     """
     __file_path = "file.json"
     __objects = {}
-    models_map = {
-                'BaseModel': BaseModel, 'Amenity': Amenity,
+    models_map = {'BaseModel': BaseModel, 'Amenity': Amenity,
                 'City': City, 'Place': Place, 'Review': Review,
-                'State': State, 'User': User
-            }
+                'State': State, 'User': User}
 
     def all(self, cls=None):
         """Simple function returns the private __objects"""

@@ -15,9 +15,10 @@ from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
-    """HBNBConsole to control the storage engine
-        Arguments:
-            flag: Error flag
+    """
+    HBNBConsole to control the storage engine
+    Arguments:
+        flag: Error flag
     """
 
     flag = 'error'

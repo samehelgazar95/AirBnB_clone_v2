@@ -10,17 +10,18 @@ from models.base_model import Base
 
 
 class DBStorage():
-    """Manipulate the DB that's storing data
-        Arguments:
-            __engine: engine var to start the db
-            __session: Session that's used to manipulate db
+    """
+    Manipulate the DB that's storing data
+    Arguments:
+        __engine: engine var to start the db
+        __session: Session that's used to manipulate db
     """
     __engine = None
     __session = None
 
     def __init__(self):
-        """DBStorage Constructor
-
+        """
+        DBStorage Constructor
         getting the need variables from the environment to create
         the database url that's need for creating the database engine
         and drops all tables if the environment is set to 'test'
@@ -31,16 +32,16 @@ class DBStorage():
         password = getenv('HBNB_MYSQL_PWD')
         host = getenv('HBNB_MYSQL_HOST')
         db_name = getenv('HBNB_MYSQL_DB')
-        db_url = '{}+{}://{}:{}@{}/{}'.format(
-                dialect, driver, user,
-                password, host, db_name)
+        db_url = '{}+{}://{}:{}@{}/{}'.format(dialect,driver,
+                                              user,password,host,db_name)
 
         DBStorage.__engine = create_engine(db_url, pool_pre_ping=True)
         if getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """Get all objects from the database.
+        """
+        Get all objects from the database.
         If a class is specified, return all objects of that class.
         Otherwise, return all objects from all classes.
         Returns:
@@ -62,7 +63,8 @@ class DBStorage():
         return objs_dict
 
     def new(self, obj):
-        """Add a new object to the current database session.
+        """
+        Add a new object to the current database session.
         Args:
             obj (BaseModel): The object to be added.
         """
@@ -73,7 +75,8 @@ class DBStorage():
         self.__session.commit()
 
     def delete(self, obj=None):
-        """Delete an object from the database session.
+        """
+        Delete an object from the database session.
         Args:
             obj (BaseModel, optional): The object to be deleted.
         """
@@ -81,10 +84,12 @@ class DBStorage():
             self.__session.delete(obj)
 
     def reload(self):
-        """Creating the tables when importing the module
+        """
+        Creating the tables when importing the module
         and creating session factory using scoped session
         which will handle closing the session automatically
-        and make the session is thread-safe"""
+        and make the session is thread-safe
+        """
         Base.metadata.create_all(DBStorage.__engine)
         session_factory = sessionmaker(DBStorage.__engine,
                                        expire_on_commit=False)
