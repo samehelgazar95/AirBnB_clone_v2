@@ -30,18 +30,6 @@ class TestConsole(unittest.TestCase):
         FileStorage._FileStorage__objects = {}
         if os.path.exists(FileStorage._FileStorage__file_path):
             os.remove(FileStorage._FileStorage__file_path)
-class TestConsole(unittest.TestCase):
-    """UnitTest for Console Class"""
-
-    def setUp(self):
-        '''Imports module, instantiates class'''
-        pass
-
-    def tearDown(self):
-        '''Cleans up after each test_method.'''
-        FileStorage._FileStorage__objects = {}
-        if os.path.exists(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
 
     def test_console_methods(self):
         with patch('sys.stdout', new=StringIO()) as f:
@@ -103,7 +91,6 @@ class TestConsole(unittest.TestCase):
             msg = "Usage: count <class_name>"
             self.assertIsInstance(f.getvalue(), str)
             self.assertEqual(f.getvalue().strip(), msg.strip()) 
-
 
 class TestConsole_BaseModel(unittest.TestCase):
     """UnitTest for Console_BaseModel Class"""
