@@ -63,7 +63,6 @@ class DBStorage():
         self.__session.add(obj)
 
     def save(self):
-        print('db SAve')
         """Commit changes to the current database session."""
         self.__session.commit()
 
