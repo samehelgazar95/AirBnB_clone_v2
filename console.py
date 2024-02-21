@@ -180,7 +180,8 @@ class HBNBCommand(cmd.Cmd):
         else:
             if self.check_name(line) == HBNBCommand.flag:
                 return
-            for key, val in storage.all().items():
+            cls_name = HBNBCommand.models_map[line]
+            for key, val in storage.all(cls_name).items():
                 if key.split('.')[0] == line:
                     objects_list.append(val.__str__())
         print(objects_list)

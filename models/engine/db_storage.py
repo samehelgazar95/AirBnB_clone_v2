@@ -28,17 +28,19 @@ class DBStorage():
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        temp_list = []
-        objects = {}
+        objs_list = []
+        objs_dict = {}
         if cls:
-            temp_list.extend(self.__session.query(cls.__name__).all())
+            objs_list = self.__session.query(cls).all()
         else:
-            for cur_cls in Base.__subclasses__():
-                temp_list.extend(self.__session.query(cur_cls).all())
-        for obj in temp_list:
-            key = obj.name + '.' + obj.id
-            objects[key] = obj
-        return objects
+            for curr_cls in Base.__subclasses__():
+                data = self.__session.query(curr_cls).all()
+                objs_list.extend(data)
+        for obj in objs_list:
+                key = '{}.{}'.format(obj.to_dict()['__class__'],
+                        obj.to_dict()['id'])
+                objs_dict[key] = obj
+        return objs_dict
 
     def new(self, obj):
         self.__session.add(obj)

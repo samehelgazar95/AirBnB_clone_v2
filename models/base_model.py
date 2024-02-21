@@ -18,6 +18,7 @@ class BaseModel:
     """
     DATE_FORMAT = '%Y-%m-%dT%H:%M:%S.%f'
     storage_type = getenv('HBNB_TYPE_STORAGE')
+    key_to_del = '_sa_instance_state'
 
     if storage_type == 'db':
         id = Column(String(60), nullable=False, primary_key=True)
@@ -47,7 +48,10 @@ class BaseModel:
     def __str__(self):
         """Editing the string representation of the object"""
         class_name = self.__class__.__name__
-        string = str("[{}] ({}) {}".format(class_name, self.id, self.__dict__))
+        clean_dict = self.__dict__.copy()
+        if self.key_to_del in clean_dict.keys():
+            del clean_dict[self.key_to_del]
+        string = str("[{}] ({}) {}".format(class_name, self.id, clean_dict))
         return string
 
     def save(self):
@@ -72,6 +76,6 @@ class BaseModel:
         dictionary["created_at"] = self.created_at.isoformat()
         dictionary["updated_at"] = self.updated_at.isoformat()
         dictionary['__class__'] = self.__class__.__name__
-        if '_sa_instance_state' in dictionary.keys():
-            del dictionary['_sa_instance_state']
+        if self.key_to_del in dictionary:
+            del dictionary[self.key_to_del]
         return dictionary
