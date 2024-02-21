@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """City class model"""
 from os import getenv
+from sqlalchemy import Column, String, ForeignKey
 from models.base_model import BaseModel, Base
 
 
@@ -13,7 +14,6 @@ class City(BaseModel, Base):
     storage_type = getenv('HBNB_TYPE_STORAGE')
 
     if storage_type == 'db':
-        from sqlalchemy import Column, String, ForeignKey
         __tablename__ = 'cities'
         name = Column(String(128), nullable=False)
         state_id = Column(String(60),

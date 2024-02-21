@@ -4,12 +4,12 @@ as a parent class for other models"""
 from os import getenv
 import uuid
 from datetime import datetime
+from sqlalchemy import Column, String, DateTime
+from sqlalchemy.ext.declarative import declarative_base
 
 
 storage_type = getenv('HBNB_TYPE_STORAGE')
 if storage_type == 'db':
-    from sqlalchemy import Column, String, DateTime
-    from sqlalchemy.ext.declarative import declarative_base
     Base = declarative_base()
 else:
     Base = object
