@@ -14,6 +14,7 @@ if storage_type == 'db':
 else:
     Base = object
 
+
 class BaseModel:
     """The BaseModel class
         Arguments:
