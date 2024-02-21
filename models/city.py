@@ -6,8 +6,7 @@ from models.base_model import BaseModel, Base
 
 
 class City(BaseModel, Base):
-    """City class that inherits
-        from BaseModel class
+    """City class that inherits from BaseModel class
         Arguments:
             state_id: State id
             name: City name

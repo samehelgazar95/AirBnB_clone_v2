@@ -8,8 +8,7 @@ from models.city import City
 
 
 class State(BaseModel, Base):
-    """State class that inherits
-        from BaseModel class
+    """State class that inherits from BaseModel class
         Arguments:
             name: State name
         """
