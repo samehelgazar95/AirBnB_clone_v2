@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """State class model"""
-from os import getenv
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
@@ -26,7 +25,6 @@ class State(BaseModel, Base):
         def cities(self):
             """ Returns all cities related to this state """
             from models.city import City
-            from models.__init__ import storage
-            all_c = storage.all(City)
+            all_c = models.storage.all(City)
             cities = [c for c in all_c.values() if c.state_id == self.id]
             return cities
