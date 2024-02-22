@@ -1,8 +1,11 @@
 #!/usr/bin/python3
-"""The console of HBnB project,
-to control the models and the storage engine"""
+"""
+=== Fresh Start ===
+The console of HBnB project,
+to control the models and the storage engine
+"""
 import cmd
-from models.engine.file_storage import FileStorage
+from models.__init__ import storage
 from models.base_model import BaseModel
 from models.state import State
 from models.city import City
@@ -13,12 +16,16 @@ from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
-    """HBNBConsole to control the storage engine
-        Arguments:
-            flag: Error flag
+    """
+    HBNBConsole to control the storage engine
+    Arguments:
+        flag: Error flag
     """
 
     flag = 'error'
+    models_map = {'BaseModel': BaseModel, 'Amenity': Amenity,
+                  'City': City, 'Place': Place, 'Review': Review,
+                  'State': State, 'User': User}
 
     def __init__(self, completeKey='tab', stdin=None, stdout=None):
         """HBNBCommand Constructor"""
@@ -98,13 +105,21 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """Creating a new instance and save it"""
-        if self.check_line(line) == HBNBCommand.flag:
+        line = line.split(' ')
+        if self.check_line(line[0]) == HBNBCommand.flag:
             return
-        if self.check_name(line) == HBNBCommand.flag:
+        if self.check_name(line[0]) == HBNBCommand.flag:
             return
-        my_model = FileStorage.models_map[line]()
-        my_model.save()
-        print(my_model.id)
+        new_instance = HBNBCommand.models_map[line[0]]()
+
+        if len(line) > 1:
+            for attr in line[1:]:
+                key, val = attr.split('=', 1)
+                setattr(new_instance, key, self.cast_attr(val))
+
+        new_instance.save()
+        print(new_instance.id)
+        new_instance.save()
 
     def do_show(self, line):
         """Printing the string representation"""
@@ -121,7 +136,7 @@ class HBNBCommand(cmd.Cmd):
             obj_key = '.'.join([args[0], args[1]])
             if self.check_instance(obj_key) == HBNBCommand.flag:
                 return
-            print(self.all_objects()[obj_key])
+            print(storage.all()[obj_key])
 
     def do_destroy(self, line):
         """Deletes an instance based on the class name and id"""
@@ -138,36 +153,36 @@ class HBNBCommand(cmd.Cmd):
             obj_key = '.'.join([args[0], args[1]])
             if self.check_instance(obj_key) == HBNBCommand.flag:
                 return
-            del self.all_objects()[obj_key]
-            self.store_save()
-            self.store_reload()
+            del storage.all()[obj_key]
+            storage.save()
+            storage.reload()
 
     def do_destroyall(self, line):
         """Resetting everything"""
-        keys = list(self.all_objects().keys())
+        keys = list(storage.all().keys())
         if line:
             if self.check_name(line) == HBNBCommand.flag:
                 return
             for key in keys:
                 obj_name, obj_id = key.split('.')
                 if obj_name == line:
-                    del self.all_objects()[key]
+                    del storage.all()[key]
         else:
             for key in keys:
-                del self.all_objects()[key]
-        self.store_save()
-        self.store_reload()
+                del storage.all()[key]
+        storage.save()
+        storage.reload()
 
     def do_all(self, line):
         """Printing all string representation of all instances"""
         objects_list = []
         if not line:
-            for val in self.all_objects().values():
+            for val in storage.all().values():
                 objects_list.append(val.__str__())
         else:
             if self.check_name(line) == HBNBCommand.flag:
                 return
-            for key, val in self.all_objects().items():
+            for key, val in storage.all().items():
                 if key.split('.')[0] == line:
                     objects_list.append(val.__str__())
         print(objects_list)
@@ -198,7 +213,7 @@ class HBNBCommand(cmd.Cmd):
             # Handling adding one attribute
             if self.attr_valid(args[2]) == HBNBCommand.flag:
                 return
-            setattr(self.all_objects()[obj_key],
+            setattr(storage.all()[obj_key],
                     args[2].strip(quotes), self.cast_attr(args[3]))
         elif length > 4:
             # Handling if there is a dictionary with valid items
@@ -209,15 +224,15 @@ class HBNBCommand(cmd.Cmd):
                     for k, v in expected_dict.items():
                         if self.attr_valid(args[2]) == HBNBCommand.flag:
                             return
-                        setattr(self.all_objects()[obj_key],
+                        setattr(storage.all()[obj_key],
                                 k.strip(quotes), self.cast_attr(v))
             else:
                 # Handling more than attr and no dictionary
-                setattr(self.all_objects()[obj_key],
+                setattr(storage.all()[obj_key],
                         args[2].strip(quotes), self.cast_attr(args[3]))
                 print(args)
-        self.store_save()
-        self.store_reload()
+        storage.save()
+        storage.reload()
 
     def attr_valid(self, attr):
         if attr in ['id', 'created_at', 'updated_at']:
@@ -229,7 +244,7 @@ class HBNBCommand(cmd.Cmd):
         if line:
             if self.check_name(line) == HBNBCommand.flag:
                 return
-            for key in self.all_objects().keys():
+            for key in storage.all().keys():
                 if key.split('.')[0] == line:
                     counter += 1
         elif not line:
@@ -245,7 +260,8 @@ class HBNBCommand(cmd.Cmd):
                 return float(var)
             except ValueError:
                 var = var.strip(' \'"')
-                return str(var)
+                new_var = var.replace('"', '').replace('_', ' ')
+                return str(new_var)
 
     def check_line(self, line):
         """Checking if the use didnot with the class name"""
@@ -255,27 +271,15 @@ class HBNBCommand(cmd.Cmd):
 
     def check_name(self, name):
         """Checking if the use is writing the class name wrongly"""
-        if name not in FileStorage.models_map.keys():
+        if name not in HBNBCommand.models_map.keys():
             print('** class doesn\'t exist **')
             return HBNBCommand.flag
 
     def check_instance(self, key):
         """Checking if instance not found, by checking the obj_key"""
-        if key not in FileStorage.all(self).keys():
+        if key not in storage.all().keys():
             print('** no instance found **')
             return HBNBCommand.flag
-
-    def all_objects(self):
-        """returns __objects dict variable from file_storage"""
-        return FileStorage.all(FileStorage)
-
-    def store_save(self):
-        """invokes save() func from file_storage"""
-        FileStorage.save(FileStorage)
-
-    def store_reload(self):
-        """invokes reload() func from file_storage"""
-        FileStorage.reload(FileStorage)
 
 
 if __name__ == '__main__':
