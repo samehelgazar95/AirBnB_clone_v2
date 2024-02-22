@@ -44,7 +44,6 @@ class DBStorage():
 
         if getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
-        # print('+++ db_storage.py <<>> __init__() +++')
 
     def all(self, cls=None):
         """
@@ -66,24 +65,20 @@ class DBStorage():
             key = '{}.{}'.format(obj.to_dict()['__class__'],
                                  obj.to_dict()['id'])
             objs_dict[key] = obj
-        # print('+++ db_storage.py <<>> all() +++')
         return objs_dict
 
     def new(self, obj):
         """Add a new object to the current database session"""
         self.__session.add(obj)
-        # print('+++ db_storage.py <<>> new() +++')
 
     def save(self):
         """Commit changes to the current database session."""
         self.__session.commit()
-        # print('+++ db_storage.py <<>> save() +++')
 
     def delete(self, obj=None):
         """Delete an object from the database session."""
         if obj:
             self.__session.delete(obj)
-        # print('+++ db_storage.py <<>> delete() +++')
 
     def reload(self):
         """
@@ -97,7 +92,6 @@ class DBStorage():
                                        expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session()
-        # print('+++ db_storage.py <<>> reload() +++')
 
     def close(self):
         """Close the current database session"""
