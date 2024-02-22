@@ -7,9 +7,7 @@ import models
 
 
 class Place(BaseModel, Base):
-    """
-    Place class
-    """
+    """Place class"""
 
     if models.storage_type == 'db':
         __tablename__ = 'places'
@@ -25,6 +23,8 @@ class Place(BaseModel, Base):
         longitude = Column(Float, nullable=True)
         user = relationship('User', back_populates='places')
         city = relationship('City', back_populates='places')
+        reviews = relationship('Review', back_populates='place',
+                               cascade='all, delete, delete-orphan')
     else:
         city_id: str = ''
         user_id: str = ''
@@ -37,3 +37,12 @@ class Place(BaseModel, Base):
         latitude: float = 0.0
         longitude: float = 0.0
         amenity_ids: list = []
+
+        @property
+        def reviews(self):
+            from models.review import Review
+            all_revs = models.storage.all(Review)
+            revs = [r for r in all_revs.values() if r.place_id == self.id]
+            return(revs)
+
+            

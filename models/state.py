@@ -20,7 +20,6 @@ class State(BaseModel, Base):
     else:
         name: str = ''
 
-    if models.storage_type != 'db':
         @property
         def cities(self):
             """ Returns all cities related to this state """
