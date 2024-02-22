@@ -21,7 +21,7 @@ class State(BaseModel):
         # cities = relationship('City',
         #                       backref='state',
         #                       cascade='all, delete, delete-orphan')
-        print('+++ state.py > db attributes +++')
+        print('+++ state.py <<>> db attributes +++')
     else:
         name: str = ''
         print('+++ state.py > file attributes +++')
@@ -29,7 +29,7 @@ class State(BaseModel):
     def __init__(self, *args, **kwargs):
         """initializes state"""
         super().__init__(*args, **kwargs)
-        print('+++ state.py > __init__() +++')
+        print('+++ state.py <<>> __init__() +++')
 
     if storage_type != 'db':
         @property
@@ -38,5 +38,5 @@ class State(BaseModel):
             from models.__init__ import storage
             all_c = storage.all(City)
             cities = [c for c in all_c.values() if c.state_id == self.id]
-            print('+++ state.py > cities @property +++')
+            print('+++ state.py <<>> cities @property +++')
             return cities

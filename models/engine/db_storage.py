@@ -38,7 +38,7 @@ class DBStorage():
         # DBStorage.__engine = create_engine(db_url, pool_pre_ping=True)
         # if getenv('HBNB_ENV') == 'test':
             # Base.metadata.drop_all(self.__engine)
-        print('+++ db_storage.py > __init__() +++')
+        print('+++ db_storage.py <<>> __init__() +++')
 
     def all(self, cls=None):
         """
@@ -60,7 +60,7 @@ class DBStorage():
         #     key = '{}.{}'.format(obj.to_dict()['__class__'],
         #                          obj.to_dict()['id'])
         #     objs_dict[key] = obj
-        print('+++ db_storage.py > all() +++')
+        print('+++ db_storage.py <<>> all() +++')
         return objs_dict
 
     def new(self, obj):
@@ -70,12 +70,12 @@ class DBStorage():
             obj (BaseModel): The object to be added.
         """
         # self.__session.add(obj)
-        print('+++ db_storage.py > new() +++')
+        print('+++ db_storage.py <<>> new() +++')
 
     def save(self):
         """Commit changes to the current database session."""
         # self.__session.commit()
-        print('+++ db_storage.py > save() +++')
+        print('+++ db_storage.py <<>> save() +++')
 
     def delete(self, obj=None):
         """
@@ -85,7 +85,7 @@ class DBStorage():
         """
         # if obj:
         #     self.__session.delete(obj)
-        print('+++ db_storage.py > delete() +++')
+        print('+++ db_storage.py <<>> delete() +++')
 
     def reload(self):
         """
@@ -98,4 +98,4 @@ class DBStorage():
         # session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
         # session_factory_scope = scoped_session(session_factory)
         # self.__session = session_factory_scope()
-        print('+++ db_storage.py > reload() +++')
+        print('+++ db_storage.py <<>> reload() +++')

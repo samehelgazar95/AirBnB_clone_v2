@@ -20,13 +20,13 @@ class City(BaseModel):
         # state_id = Column(String(60),
         #                   ForeignKey('states.id'),
         #                   nullable=False)
-        print('+++ city.py > db attributes +++')
+        print('+++ city.py <<>> db attributes +++')
     else:
         state_id: str = ''
         name: str = ''
-        print('+++ city.py > file attributes +++')
+        print('+++ city.py <<>> file attributes +++')
 
     def __init__(self, *args, **kwargs):
         """initializes city"""
         super().__init__(*args, **kwargs)
-        print('+++ city.py > __init__() +++')
+        print('+++ city.py <<>> __init__() +++')

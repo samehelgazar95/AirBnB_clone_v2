@@ -1,21 +1,46 @@
 #!/usr/bin/python3
-"""BaseModel class
-as a parent class for other models"""
+"""
+BaseModel class
+as a parent class for other models
+"""
+from os import getenv
 import uuid
 import datetime
 import models
+# from sqlalchemy import Column, String, DateTime
+# from sqlalchemy.ext.declarative import declarative_base
+
+
+storage_type = getenv('HBNB_TYPE_STORAGE')
+if storage_type == 'db':
+    # Base = declarative_base()
+    print('+++ base_model.py <<>> Base = declarative_base() +++')
+else:
+    # Base = object
+    print('+++ base_model.py <<>> Base = object +++')
 
 
 class BaseModel:
-    """The BaseModel class
+    """
+    The BaseModel class
         Arguments:
         DATE_FORMAT: The creating and updating date format
     """
 
     DATE_FORMAT = '%Y-%m-%dT%H:%M:%S.%f'
+    key_to_del = '_sa_instance_state'
+
+    if storage_type == 'db':
+        print('+++ base_model.py <<>> db Attributes +++')
+        # id = Column(String(60), nullable=False,
+        #             primary_key=True)
+        # created_at = Column(DateTime, default=datetime.utcnow(),
+        #                     nullable=False)
+        # updated_at = Column(DateTime, default=datetime.utcnow(),
+        #                     nullable=False)
 
     def __init__(self, *args, **kwargs):
-        """Init method instantiated with 3 attrs"""
+        """Init method instantiated with 3 main attributes"""
         if kwargs:
             for key, val in kwargs.items():
                 if key == 'created_at' or key == 'updated_at':
@@ -23,27 +48,42 @@ class BaseModel:
                 elif key == '__class__':
                     continue
                 setattr(self, key, val)
+            print('+++ base_model.py <<>> __init__() kwargs +++')
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.datetime.now()
             self.updated_at = datetime.datetime.now()
-            models.storage.new(self)
+            print('+++ base_model.py <<>> __init__() NOT kwargs +++')
 
     def __str__(self):
         """Editing the string representation of the object"""
         class_name = self.__class__.__name__
-        string = str("[{}] ({}) {}".format(class_name, self.id, self.__dict__))
+        clean_dict = self.__dict__.copy()
+        if self.key_to_del in clean_dict.keys():
+            del clean_dict[self.key_to_del]
+        string = str("[{}] ({}) {}".format(class_name, self.id, clean_dict))
+        print('+++ base_model.py <<>> __str__() +++')
         return string
 
     def save(self):
-        """Updating the updated_at attr to current time"""
+        """
+        Updating the updated_at attr to current time
+        Importing the storage here
+        to avoid the circular import
+        """
+        from models import storage
         self.updated_at = datetime.datetime.now()
-        models.storage.save()
+        storage.new(self)
+        storage.save()
+        print('+++ base_model.py <<>> save() +++')
 
     def to_dict(self):
         """Editing the __dict__ representation of the object"""
-        dict_attr = self.__dict__.copy()
-        dict_attr["created_at"] = self.created_at.isoformat()
-        dict_attr["updated_at"] = self.updated_at.isoformat()
-        dict_attr['__class__'] = self.__class__.__name__
-        return dict_attr
+        dictionary = self.__dict__.copy()
+        dictionary["created_at"] = self.created_at.isoformat()
+        dictionary["updated_at"] = self.updated_at.isoformat()
+        dictionary['__class__'] = self.__class__.__name__
+        if self.key_to_del in dictionary:
+            del dictionary[self.key_to_del]
+        print('+++ base_model.py <<>> to_dict() +++')
+        return dictionary
