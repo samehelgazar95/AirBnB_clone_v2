@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """
-=== Fresh Start ===
 The console of HBnB project,
 to control the models and the storage engine
 """

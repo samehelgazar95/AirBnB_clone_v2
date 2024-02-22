@@ -13,6 +13,9 @@ from models.amenity import Amenity
 from models.user import User
 from models.review import Review
 
+models_map = {'BaseModel': BaseModel, 'Amenity': Amenity,
+              'City': City, 'Place': Place, 'Review': Review,
+              'State': State, 'User': User}
 
 class FileStorage:
     """
@@ -24,9 +27,6 @@ class FileStorage:
     """
     __file_path = "file.json"
     __objects = {}
-    models_map = {'BaseModel': BaseModel, 'Amenity': Amenity,
-                  'City': City, 'Place': Place, 'Review': Review,
-                  'State': State, 'User': User}
 
     def all(self, cls=None):
         """returns the private __objects or all objects"""
