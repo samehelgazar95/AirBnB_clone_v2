@@ -13,9 +13,11 @@ from models.amenity import Amenity
 from models.user import User
 from models.review import Review
 
+
 models_map = {'BaseModel': BaseModel, 'Amenity': Amenity,
               'City': City, 'Place': Place, 'Review': Review,
               'State': State, 'User': User}
+
 
 class FileStorage:
     """
@@ -33,8 +35,8 @@ class FileStorage:
         if cls is not None:
             temp = {}
             for key, val in FileStorage.__objects.items():
-                key_name = key.split('.')[0]
-                if cls == key_name:
+                key_name, _ = key.split('.')
+                if cls.__name__ == key_name:
                     temp[key] = val
             return temp
         else:
@@ -79,5 +81,5 @@ class FileStorage:
         for key, val in data.items():
             cls_name = val.get('__class__')
             if cls_name:
-                new_obj = FileStorage.models_map[cls_name](**val)
+                new_obj = models_map[cls_name](**val)
                 FileStorage.__objects[key] = new_obj
