@@ -11,10 +11,8 @@ storage_type = getenv('HBNB_TYPE_STORAGE')
 if storage_type == 'db':
     from models.engine.db_storage import DBStorage
     storage = DBStorage()
-    # print('+++ __init__.py <<>> db storage +++')
 else:
     from models.engine.file_storage import FileStorage
     storage = FileStorage()
-    # print('+++ __init__.py <<>> file storage +++')
 
 storage.reload()
