@@ -31,13 +31,12 @@ class FileStorage:
     def all(self, cls=None):
         """returns the private __objects or all objects"""
         if cls is not None:
-            pass
-        #     temp = {}
-        #     for key, val in FileStorage.__objects.items():
-        #         key_name = key.split('.')[0]
-        #         if cls == key_name:
-        #             temp[key] = val
-        #     return temp
+            temp = {}
+            for key, val in FileStorage.__objects.items():
+                key_name = key.split('.')[0]
+                if cls == key_name:
+                    temp[key] = val
+            return temp
         else:
             return FileStorage.__objects
 
