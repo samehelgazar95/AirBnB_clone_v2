@@ -35,7 +35,15 @@ class DBStorage():
         db_url = '{}+{}://{}:{}@{}/{}'.format(dialect,driver,
                                               user,password,host,db_name)
 
+        # try:
+        #     engine = create_engine(db_url)
+        #     Session = sessionmaker(bind=engine)
+        #     # ... rest of your code ...
+        # except Exception as e:
+        #     print(f"An error occurred: {e}")
+        
         # DBStorage.__engine = create_engine(db_url, pool_pre_ping=True)
+        
         # if getenv('HBNB_ENV') == 'test':
             # Base.metadata.drop_all(self.__engine)
         print('+++ db_storage.py <<>> __init__() +++')

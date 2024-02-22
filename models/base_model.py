@@ -5,19 +5,18 @@ as a parent class for other models
 """
 from os import getenv
 import uuid
-import datetime
-import models
-# from sqlalchemy import Column, String, DateTime
-# from sqlalchemy.ext.declarative import declarative_base
+from datetime import datetime
+from sqlalchemy import Column, String, DateTime
+from sqlalchemy.ext.declarative import declarative_base
 
 
 storage_type = getenv('HBNB_TYPE_STORAGE')
 if storage_type == 'db':
-    # Base = declarative_base()
-    print('+++ base_model.py <<>> Base = declarative_base() +++')
+    Base = declarative_base()
+    # print('+++ base_model.py <<>> Base = declarative_base() +++')
 else:
-    # Base = object
-    print('+++ base_model.py <<>> Base = object +++')
+    Base = object
+    # print('+++ base_model.py <<>> Base = object +++')
 
 
 class BaseModel:
@@ -31,29 +30,27 @@ class BaseModel:
     key_to_del = '_sa_instance_state'
 
     if storage_type == 'db':
-        print('+++ base_model.py <<>> db Attributes +++')
-        # id = Column(String(60), nullable=False,
-        #             primary_key=True)
-        # created_at = Column(DateTime, default=datetime.utcnow(),
-        #                     nullable=False)
-        # updated_at = Column(DateTime, default=datetime.utcnow(),
-        #                     nullable=False)
+        id = Column(String(60), primary_key=True, nullable=False)
+        created_at = Column(DateTime, default=datetime.utcnow(),
+                            nullable=False)
+        updated_at = Column(DateTime, default=datetime.utcnow(),
+                            nullable=False)
+        # print('+++ base_model.py <<>> db Attributes +++')
 
     def __init__(self, *args, **kwargs):
-        """Init method instantiated with 3 main attributes"""
+        """Init method with 3 main attributes"""
+        self.id = str(uuid.uuid4())
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
+        # print('+++ base_model.py <<>> __init__() NOT kwargs +++')
         if kwargs:
             for key, val in kwargs.items():
                 if key == 'created_at' or key == 'updated_at':
-                    val = datetime.datetime.strptime(val, self.DATE_FORMAT)
+                    val = datetime.strptime(val, self.DATE_FORMAT)
                 elif key == '__class__':
                     continue
                 setattr(self, key, val)
-            print('+++ base_model.py <<>> __init__() kwargs +++')
-        else:
-            self.id = str(uuid.uuid4())
-            self.created_at = datetime.datetime.now()
-            self.updated_at = datetime.datetime.now()
-            print('+++ base_model.py <<>> __init__() NOT kwargs +++')
+            # print('+++ base_model.py <<>> __init__() kwargs +++')
 
     def __str__(self):
         """Editing the string representation of the object"""
@@ -62,7 +59,7 @@ class BaseModel:
         if self.key_to_del in clean_dict.keys():
             del clean_dict[self.key_to_del]
         string = str("[{}] ({}) {}".format(class_name, self.id, clean_dict))
-        print('+++ base_model.py <<>> __str__() +++')
+        # print('+++ base_model.py <<>> __str__() +++')
         return string
 
     def save(self):
@@ -72,10 +69,10 @@ class BaseModel:
         to avoid the circular import
         """
         from models import storage
-        self.updated_at = datetime.datetime.now()
+        self.updated_at = datetime.now()
         storage.new(self)
         storage.save()
-        print('+++ base_model.py <<>> save() +++')
+        # print('+++ base_model.py <<>> save() +++')
 
     def to_dict(self):
         """Editing the __dict__ representation of the object"""
@@ -85,5 +82,5 @@ class BaseModel:
         dictionary['__class__'] = self.__class__.__name__
         if self.key_to_del in dictionary:
             del dictionary[self.key_to_del]
-        print('+++ base_model.py <<>> to_dict() +++')
+        # print('+++ base_model.py <<>> to_dict() +++')
         return dictionary
