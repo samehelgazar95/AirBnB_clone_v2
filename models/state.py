@@ -6,20 +6,14 @@ from sqlalchemy.orm import relationship, backref
 from models.base_model import BaseModel, Base
 
 
-storage_type = getenv('HBNB_TYPE_STORAGE')
-
-
 class State(BaseModel, Base):
-    """
-    State class that inherits from BaseModel class
-    Arguments:
-        name: State name
-    """
+    """State class that inherits from BaseModel class"""
+    __tablename__ = 'states'
+    storage_type = getenv('HBNB_TYPE_STORAGE')
 
     if storage_type == 'db':
-        __tablename__ = 'states'
         name = Column(String(128), nullable=False)
-        cities = relationship('City', backref=backref('state'),
+        cities = relationship('City', back_populates='state',
                               cascade='all, delete, delete-orphan')
         # print('+++ state.py <<>> db attributes +++')
     else:

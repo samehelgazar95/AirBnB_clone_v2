@@ -20,11 +20,7 @@ else:
 
 
 class BaseModel:
-    """
-    The BaseModel class
-        Arguments:
-        DATE_FORMAT: The creating and updating date format
-    """
+    """The BaseModel class"""
 
     DATE_FORMAT = '%Y-%m-%dT%H:%M:%S.%f'
     key_to_del = '_sa_instance_state'
@@ -73,6 +69,15 @@ class BaseModel:
         storage.new(self)
         storage.save()
         # print('+++ base_model.py <<>> save() +++')
+
+    def delete(self):
+        """
+        Deleting current instance by
+        calling the delete method from storage
+        """
+        # print('>>> base_model.py BaseMode delete <<<')
+        from models import storage
+        storage.delete(self)
 
     def to_dict(self):
         """Editing the __dict__ representation of the object"""
