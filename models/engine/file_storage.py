@@ -31,12 +31,13 @@ class FileStorage:
     def all(self, cls=None):
         """returns the private __objects or all objects"""
         if cls is not None:
-            temp = {}
-            for key, val in FileStorage.__objects.items():
-                key_name = key.split('.')[0]
-                if cls == key_name:
-                    temp[key] = val
-            return temp
+            pass
+        #     temp = {}
+        #     for key, val in FileStorage.__objects.items():
+        #         key_name = key.split('.')[0]
+        #         if cls == key_name:
+        #             temp[key] = val
+        #     return temp
         else:
             return FileStorage.__objects
 
@@ -53,12 +54,12 @@ class FileStorage:
         with open(FileStorage.__file_path, 'w') as file:
             json.dump(data, file, indent=4)
 
-    # def delete(self, obj=None):
-    #     """Delete object from __objects"""
-    #     if obj is not None:
-    #         key = obj.to_dict()['__class__'] + '.' + obj.id
-    #         del FileStorage.__objects[key]
-    #     self.save()
+    def delete(self, obj=None):
+        """Delete object from __objects"""
+        if obj is not None:
+            key = obj.to_dict()['__class__'] + '.' + obj.id
+            del FileStorage.__objects[key]
+        self.save()
 
     def reload(self):
         """Loading the dict from file.json"""
