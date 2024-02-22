@@ -1,33 +1,39 @@
 #!/usr/bin/python3
 """Place class model"""
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from sqlalchemy.orm import relationship
+import models
 
 
-class Place(BaseModel):
-    """Place class that inherits
-        from BaseModel class
-        Arguments:
-            city_id: City id
-            user_id: User id
-            name: Place name
-            description: Place desc
-            number_rooms: Place number room
-            number_bathrooms: Place number bathrooms
-            max_guest: Place max guest
-            price_by_night: Place price by night
-            latitude: Place lat
-            longitude: Place long
-            amenity_ids: Amenity id
-        """
+class Place(BaseModel, Base):
+    """
+    Place class
+    """
 
-    city_id: str = ''
-    user_id: str = ''
-    name: str = ''
-    description: str = ''
-    number_rooms: int = 0
-    number_bathrooms: int = 0
-    max_guest: int = 0
-    price_by_night: int = 0
-    latitude: float = 0.0
-    longitude: float = 0.0
-    amenity_ids: list = []
+    if models.storage_type == 'db':
+        __tablename__ = 'places'
+        city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
+        user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
+        name = Column(String(128), nullable=False)
+        description = Column(String(1024))
+        number_rooms = Column(Integer, nullable=False, default=0)
+        number_bathrooms = Column(Integer, nullable=False, default=0)
+        max_guest = Column(Integer, nullable=False, default=0)
+        price_by_night = Column(Integer, nullable=False, default=0)
+        latitude = Column(Float, nullable=False, default=0)
+        longitude = Column(Float, nullable=False, default=0)
+        user = relationship('User', back_populates='places')
+        city = relationship('City', back_populates='places')
+    else:
+        city_id: str = ''
+        user_id: str = ''
+        name: str = ''
+        description: str = ''
+        number_rooms: int = 0
+        number_bathrooms: int = 0
+        max_guest: int = 0
+        price_by_night: int = 0
+        latitude: float = 0.0
+        longitude: float = 0.0
+        amenity_ids: list = []

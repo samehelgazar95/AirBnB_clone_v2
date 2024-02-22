@@ -5,8 +5,12 @@ from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
 import models
 
+
 class State(BaseModel, Base):
-    """State class that inherits from BaseModel class"""
+    """
+    State class:"
+        |State|---<|City| (One to Many)
+    """
 
     if models.storage_type == 'db':
         __tablename__ = 'states'

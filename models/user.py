@@ -2,11 +2,15 @@
 """User class model"""
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
 import models
 
 
 class User(BaseModel, Base):
-    """User class"""
+    """
+    User class
+        |User|---<|Place| (One to Many)
+    """
 
     if models.storage_type == 'db':
         __tablename__ = 'users'
@@ -14,6 +18,8 @@ class User(BaseModel, Base):
         password = Column(String(128), nullable=False)
         first_name = Column(String(128))
         last_name = Column(String(128))
+        places = relationship('Place', back_populates='user',
+                              cascade='all, delete, delete-orphan')
     else:
         email: str = ''
         password: str = ''
