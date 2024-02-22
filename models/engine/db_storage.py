@@ -13,6 +13,7 @@ from models.amenity import Amenity
 from models.user import User
 from models.review import Review
 
+
 class DBStorage():
     """
     Manipulate the DB that's storing data

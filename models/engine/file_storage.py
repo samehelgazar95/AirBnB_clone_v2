@@ -30,11 +30,11 @@ class FileStorage:
 
     def all(self, cls=None):
         """returns the private __objects or all objects"""
-        if cls:
+        if cls is not None:
             temp = {}
             for key, val in FileStorage.__objects.items():
                 key_name = str(key.split('.')[0])
-                if cls.__name__ == key_name:
+                if cls == key_name:
                     temp[key] = val
             return temp
         else:
@@ -55,7 +55,7 @@ class FileStorage:
 
     def delete(self, obj=None):
         """Delete object from __objects"""
-        if obj:
+        if obj is not None:
             key = obj.to_dict()['__class__'] + '.' + obj.id
             del FileStorage.__objects[key]
         self.save()
