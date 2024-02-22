@@ -40,57 +40,110 @@ class TestConsole(unittest.TestCase):
             HBNBCommand().onecmd('help')
             self.assertIsInstance(f.getvalue(), str)
 
-        with self.assertRaises(SystemExit):
+        with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd('quit')
+            self.assertEqual(f.getvalue(), '')
 
-        with self.assertRaises(SystemExit):
+        with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd('EOF')
+            self.assertEqual(f.getvalue(), '\n')
 
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd('help quit')
-            msg = "Exits the program with formatting\n"
-            self.assertEqual(f.getvalue().strip(), msg.strip())
+            msg = 'Quit command to exit the program'
+            self.assertIsInstance(f.getvalue(), str)
+            self.assertEqual(f.getvalue().strip(), msg)
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('help quit')
+            msg = 'Quit command to exit the program'
+            self.assertIsInstance(f.getvalue(), str)
+            self.assertEqual(f.getvalue().strip(), msg)
 
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd('help EOF')
-            msg = "Exits the program without formatting\n"
-            self.assertEqual(f.getvalue().strip(), msg.strip())
+            msg = 'EOF command to exit the program'
+            self.assertIsInstance(f.getvalue(), str)
+            self.assertEqual(f.getvalue().strip(), msg)
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('? EOF')
+            msg = 'EOF command to exit the program'
+            self.assertIsInstance(f.getvalue(), str)
+            self.assertEqual(f.getvalue().strip(), msg)
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('? create')
+            msg = "Creating a new instance and save it"
+            self.assertIsInstance(f.getvalue(), str)
+            self.assertEqual(f.getvalue().strip(), msg)
 
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd('help create')
-            msg = "Creates a class of any type\n[Usage]: create <className>\n"
+            msg = "Creating a new instance and save it"
             self.assertIsInstance(f.getvalue(), str)
-            self.assertEqual(f.getvalue().strip(), msg.strip())
+            self.assertEqual(f.getvalue().strip(), msg)
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('? show')
+            msg = "Printing the string representation"
+            self.assertIsInstance(f.getvalue(), str)
+            self.assertEqual(f.getvalue().strip(), msg)
 
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd('help show')
-            msg = "Shows an individual instance of a class\n[Usage]: show <className> <objectId>\n"
+            msg = "Printing the string representation"
             self.assertIsInstance(f.getvalue(), str)
-            self.assertEqual(f.getvalue().strip(), msg.strip())
+            self.assertEqual(f.getvalue().strip(), msg)
 
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd('help destroy')
-            msg = "Destroys an individual instance of a class\n[Usage]: destroy <className> <objectId>\n"
+            msg = "Deletes an instance based on the class name and id"
             self.assertIsInstance(f.getvalue(), str)
-            self.assertEqual(f.getvalue().strip(), msg.strip())
+            self.assertEqual(f.getvalue().strip(), msg)
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('? destroy')
+            msg = "Deletes an instance based on the class name and id"
+            self.assertIsInstance(f.getvalue(), str)
+            self.assertEqual(f.getvalue().strip(), msg)
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('? all')
+            msg = "Printing all string representation of all instances"
+            self.assertIsInstance(f.getvalue(), str)
+            self.assertEqual(f.getvalue().strip(), msg)
 
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd('help all')
-            msg = "Shows all objects, or all of a class\n[Usage]: all <className>\n"
+            msg = "Printing all string representation of all instances"
             self.assertIsInstance(f.getvalue(), str)
-            self.assertEqual(f.getvalue().strip(), msg.strip())
+            self.assertEqual(f.getvalue().strip(), msg)
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('? update')
+            msg = "Updating the instance by adding new attributes"
+            self.assertIsInstance(f.getvalue(), str)
+            self.assertEqual(f.getvalue().strip(), msg)
 
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd('help update')
-            msg = "Updates an object with new information\nUsage: update <className> <id> <attName> <attVal>\n"
+            msg = "Updating the instance by adding new attributes"
             self.assertIsInstance(f.getvalue(), str)
-            self.assertEqual(f.getvalue().strip(), msg.strip())
+            self.assertEqual(f.getvalue().strip(), msg)
 
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd('help count')
-            msg = "Usage: count <class_name>"
+            msg = "Counting How many instance are there"
             self.assertIsInstance(f.getvalue(), str)
-            self.assertEqual(f.getvalue().strip(), msg.strip()) 
+            self.assertEqual(f.getvalue().strip(), msg)
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('? count')
+            msg = "Counting How many instance are there"
+            self.assertIsInstance(f.getvalue(), str)
+            self.assertEqual(f.getvalue().strip(), msg)
+
 
 class TestConsole_BaseModel(unittest.TestCase):
     """UnitTest for Console_BaseModel Class"""

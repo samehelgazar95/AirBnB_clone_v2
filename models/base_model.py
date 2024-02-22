@@ -1,45 +1,38 @@
 #!/usr/bin/python3
-"""
-BaseModel class
-as a parent class for other models
-"""
+"""BaseModel class
+as a parent class for other models"""
 from os import getenv
 import uuid
 from datetime import datetime
-from sqlalchemy import Column, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, String, DateTime
 
 
-storage_type = getenv('HBNB_TYPE_STORAGE')
-if storage_type == 'db':
-    Base = declarative_base()
-    print('>>> base_model.py Base = declarative_base() <<<')
-else:
-    Base = object
-    print('>>> base_model.py Base = object <<<')
+Base = declarative_base()
 
 
 class BaseModel:
-    """
-    The BaseModel class
+    """The BaseModel class
         Arguments:
         DATE_FORMAT: The creating and updating date format
     """
     DATE_FORMAT = '%Y-%m-%dT%H:%M:%S.%f'
+    storage_type = getenv('HBNB_TYPE_STORAGE')
     key_to_del = '_sa_instance_state'
 
     if storage_type == 'db':
-        print('base_model.py BaseMode table created')
-        id = Column(String(60), nullable=False,
-                    primary_key=True)
-        created_at = Column(DateTime, default=datetime.utcnow(),
-                            nullable=False)
-        updated_at = Column(DateTime, default=datetime.utcnow(),
-                            nullable=False)
+        id = Column(String(60), nullable=False, primary_key=True)
+        created_at = Column(
+            DateTime,
+            default=datetime.utcnow(),
+            nullable=False)
+        updated_at = Column(
+            DateTime,
+            default=datetime.utcnow(),
+            nullable=False)
 
     def __init__(self, *args, **kwargs):
         """Init method instantiated with 3 attrs"""
-        print('>>> base_model.py BaseMode __init__ <<<')
         if kwargs:
             for key, val in kwargs.items():
                 if key == 'created_at' or key == 'updated_at':
@@ -54,7 +47,6 @@ class BaseModel:
 
     def __str__(self):
         """Editing the string representation of the object"""
-        print('>>> base_model.py BaseMode __str__ <<<')
         class_name = self.__class__.__name__
         clean_dict = self.__dict__.copy()
         if self.key_to_del in clean_dict.keys():
@@ -63,29 +55,23 @@ class BaseModel:
         return string
 
     def save(self):
+        """Updating the updated_at attr to current time
+            # Importing the storage here
+            # to avoid the circular import
         """
-        Updating the updated_at attr to current time
-        Importing the storage here
-        to avoid the circular import
-        """
-        print('>>> base_model.py BaseMode save <<<')
         from models import storage
         self.updated_at = datetime.now()
         storage.new(self)
         storage.save()
 
     def delete(self):
-        """
-        Deleting current instance by
-        calling the delete method from storage
-        """
-        print('>>> base_model.py BaseMode delete <<<')
+        """Deleting current instance by
+        calling the delete method from storage"""
         from models import storage
         storage.delete(self)
 
     def to_dict(self):
         """Editing the __dict__ representation of the object"""
-        print('>>> base_model.py BaseMode to_dict <<<')
         dictionary = self.__dict__.copy()
         dictionary["created_at"] = self.created_at.isoformat()
         dictionary["updated_at"] = self.updated_at.isoformat()

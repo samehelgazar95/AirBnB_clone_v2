@@ -1,8 +1,6 @@
 #!/usr/bin/python3
-"""
-The console of HBnB project,
-to control the models and the storage engine
-"""
+"""The console of HBnB project,
+to control the models and the storage engine"""
 import cmd
 from models.__init__ import storage
 from models.base_model import BaseModel
@@ -15,10 +13,9 @@ from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
-    """
-    HBNBConsole to control the storage engine
-    Arguments:
-        flag: Error flag
+    """HBNBConsole to control the storage engine
+        Arguments:
+            flag: Error flag
     """
 
     flag = 'error'
@@ -183,7 +180,8 @@ class HBNBCommand(cmd.Cmd):
         else:
             if self.check_name(line) == HBNBCommand.flag:
                 return
-            for key, val in storage.all().items():
+            cls_name = HBNBCommand.models_map[line]
+            for key, val in storage.all(cls_name).items():
                 if key.split('.')[0] == line:
                     objects_list.append(val.__str__())
         print(objects_list)
