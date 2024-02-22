@@ -2,7 +2,7 @@
 
 
 -- Create database (if not already exists)
-CREATE DATABASE IF NOT EXISTS hbnb_dev_db;
+CREATE DATABASE IF NOT EXISTS `hbnb_dev_db`;
 
 -- Create user (if not already exists)
 CREATE USER IF NOT EXISTS 'hbnb_dev'@'localhost' IDENTIFIED BY 'hbnb_dev_pwd';
