@@ -33,7 +33,7 @@ class FileStorage:
         if cls is not None:
             temp = {}
             for key, val in FileStorage.__objects.items():
-                key_name = str(key.split('.')[0])
+                key_name = key.split('.')[0]
                 if cls == key_name:
                     temp[key] = val
             return temp
