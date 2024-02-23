@@ -7,7 +7,21 @@ import models
 
 
 place_amenity = Table(
-    'place_amenity', Base.metadata,
+    'place_amenity', metadata=#!/usr/bin/python3
+"""Place class model"""
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
+from sqlalchemy.orm import relationship
+import models
+
+
+place_amenity = Table(
+    'place_amenity', metadata=Base.metadata,
+    Column('place_id', ForeignKey('places.id'), String(60), nullable=False),
+    Column('amenity_id', ForeignKey('amenities.id'), String(60), nullable=False)
+    )
+
+Base.metadata,
     Column('place_id', String(60), ForeignKey('places.id'), nullable=False),
     Column('amenity_id', String(60), ForeignKey('amenities.id'), nullable=False)
     )
