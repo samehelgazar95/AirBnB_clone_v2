@@ -25,5 +25,5 @@ class State(BaseModel, Base):
             """ Returns all cities related to this state """
             from models.city import City
             all_c = models.storage.all(City)
-            cities = [c for c in all_c.values() if c.state_id == self.id]
-            return cities
+            curr_cities = [c for c in all_c.values() if c.state_id == self.id]
+            return curr_cities

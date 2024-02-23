@@ -1,13 +1,22 @@
 #!/usr/bin/python3
 """Amenity class model"""
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
+import models
 
 
-class Amenity(BaseModel):
-    """Amenity class that inherits
-        from BaseModel class
-        Arguments:
-            name: Amenity name
-        """
+class Amenity(BaseModel, Base):
+    """
+    Amenity class
+        |Amenity|>---<|Places|
+    """
 
-    name: str = ''
+    if models.storage_type == 'db':
+        from models.place import place_amenity
+        __tablename__ = 'amenities'
+        name = Column(String(128), nullable=False)
+        place = relationship('Place', secondary=place_amenity,
+                             back_populates='amenities', viewonly=False)
+    else:
+        name: str = ''

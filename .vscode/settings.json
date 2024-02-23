@@ -1,3 +1,9 @@
 {
-  "cSpell.words": ["backref", "mysqldb", "sessionmaker", "sqlalchemy"]
+  "cSpell.words": [
+    "backref",
+    "mysqldb",
+    "sessionmaker",
+    "sqlalchemy",
+    "viewonly"
+  ]
 }
