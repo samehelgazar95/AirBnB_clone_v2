@@ -31,6 +31,8 @@ class Place(BaseModel, Base):
     """
     Place class
         |Places|>---<|Amenity| (Many to Many)
+        |Places|---<|place_amenity| (One to Many)
+        |Places|---<|Review| (One to Many)
     """
 
     if models.storage_type == 'db':

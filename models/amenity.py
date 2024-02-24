@@ -9,7 +9,8 @@ import models
 class Amenity(BaseModel, Base):
     """
     Amenity class
-        |Amenity|>---<|Places|
+        |Amenity|>---<|Places| (Many to Many)
+        |Amenity|---<|place_amenity| (One to Many)
     """
 
     if models.storage_type == 'db':

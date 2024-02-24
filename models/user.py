@@ -10,6 +10,7 @@ class User(BaseModel, Base):
     """
     User class
         |User|---<|Place| (One to Many)
+        |User|---<|Review| (One to Many)
     """
 
     if models.storage_type == 'db':
