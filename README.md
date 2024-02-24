@@ -26,6 +26,7 @@ In the latest version, we expanded the project to include database storage using
 - Implemented database models for the classes introduced in v1.
 - Created `db_storage.py` to control data storage and retrieval using a relational database.
 - Allowed users to choose between file-based storage and database storage using the `HBNB_TYPE_STORAGE` environment variable.
+- Utilized specific environment variables (`HBNB_MYSQL_USER`, `HBNB_MYSQL_PWD`, `HBNB_MYSQL_HOST`, `HBNB_MYSQL_DB`, `HBNB_ENV`) to create the SQLAlchemy URL for connecting to the database.
 
 ## Entity Relationship Diagram (ERD)
 
