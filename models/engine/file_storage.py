@@ -55,13 +55,6 @@ class FileStorage:
         with open(FileStorage.__file_path, 'w') as file:
             json.dump(data, file, indent=4)
 
-    def delete(self, obj=None):
-        """Delete object from __objects"""
-        if obj is not None:
-            key = obj.to_dict()['__class__'] + '.' + obj.id
-            del FileStorage.__objects[key]
-        self.save()
-
     def reload(self):
         """Loading the dict from file.json"""
         if os.path.isfile(FileStorage.__file_path):
