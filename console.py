@@ -233,10 +233,6 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
         storage.reload()
 
-    def attr_valid(self, attr):
-        if attr in ['id', 'created_at', 'updated_at']:
-            return HBNBCommand.flag
-
     def do_count(self, line):
         """Counting How many instance are there"""
         counter = 0
@@ -249,6 +245,10 @@ class HBNBCommand(cmd.Cmd):
         elif not line:
             return
         print(counter)
+
+    def attr_valid(self, attr):
+        if attr in ['id', 'created_at', 'updated_at']:
+            return HBNBCommand.flag
 
     def cast_attr(self, var):
         """Editing the attr value before saving to the file.json"""
