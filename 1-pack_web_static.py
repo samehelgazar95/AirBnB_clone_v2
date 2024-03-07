@@ -5,6 +5,10 @@ from datetime import datetime
 
 
 def do_pack():
+    """
+        Tab ya 3am yl3an abo el fabric3==1.14.post1
+        we mesh hakteb ay arguments
+    """
     versions_dir = local("mkdir -p versions")
     if versions_dir.failed:
         return None
