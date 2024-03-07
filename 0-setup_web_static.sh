@@ -9,8 +9,7 @@ sudo apt -y install nginx
 sudo mkdir -p /data/web_static/releases/test/
 sudo mkdir -p /data/web_static/shared/
 
-cd /data/web_static/releases/ || exit
-echo 'Yel3an abo el Fabric3==1.14.post1' > index.html
+echo 'Yel3an abo el Fabric3==1.14.post1' > /data/web_static/releases/index.html
 
 sudo ln -sf  /data/web_static/releases/test/ /data/web_static/current
 
