@@ -4,6 +4,7 @@ from fabric.api import local
 
 
 def deploy():
+    """ Temp Temp Temp Temp"""
     # Archiving the web_static files
     pack = local('fab -f 1-pack_web_static.py do_pack')
     if pack is None:
