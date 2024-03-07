@@ -8,6 +8,7 @@ env.user = ['ubuntu', 'ubuntu']
 
 
 def do_deploy(archive_path):
+    """ Do some Sha2labzat and make the deploy"""
     if archive_path is None:
         return Flase
 
