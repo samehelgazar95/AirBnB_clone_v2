@@ -19,10 +19,10 @@ def do_pack():
         return None
 
     n = datetime.utcnow()
-    tgz_file = "web_static_{}{}{}{}{}{}.tgz".format(
+    tgz_file = "versions/web_static_{}{}{}{}{}{}.tgz".format(
             n.year, n.month, n.day, n.hour, n.minute, n.second)
 
-    tgz_cmd = "tar -czf versions/{} web_static".format(tgz_file)
+    tgz_cmd = "tar -czvf {} web_static".format(tgz_file)
 
     compress = local(tgz_cmd)
     if compress.failed:
@@ -85,6 +85,4 @@ def deploy():
         return False
 
     # Deploying the files to servers
-    full_path = 'versions/{}'.format(pack)
-    deploy = do_deploy(full_path)
-    return deploy
+    return do_deploy(pack)
