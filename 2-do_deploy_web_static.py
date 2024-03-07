@@ -23,26 +23,30 @@ def do_deploy(archive_path):
         return False
 
     # Second: Uncompress the archive
-    remote_arch_path = '/tmp/{}'.format(arch_file)
-    remote_uncompress_path = '/data/web_static/releases/{}/'.format(
-            arch_name)
-
-    if run('mkdir -p {}'.format(uncompress_path)).failed:
+    if run('mkdir -p /data/web_static/releases/{}'.format(arch_name)).failed:
         return False
 
-    if run('tar -xvzf {} -C {}'.format(
-            remote_arch_path, remote_uncompress_path)).failed:
+    if run('tar -xvzf /tmp/{} -C /data/web_static/releases/{}'.
+            format(arch_file, arch_name)).failed:
         return False
 
     # Third: Delete remote archive & recreate symbolic link
-    if run('rm -rf {}'.format(remote_arch_path)).failed:
+    if run('rm /tmp/{}'.format(arch_file)).failed:
+        return False
+
+    if run('mv /data/web_static/releases/{}/web_static/* \
+            /data/web_static/releases/{}'.format(arch_name)).failed:
+        return False
+
+    if run('rm -rf /data/web_static/releases/{}/web_static'.
+            format(arch_name)).failed:
         return False
 
     if run('rm -rf /data/web_static/current').failed:
         return False
 
-    if run('ln -sf {} /data/web_static/current'.format(
-            remote_uncompress_path)).failed:
+    if run('ln -sf /data/web_static/releases/{} /data/web_static/current'.
+            format(arch_name)).failed:
         return False
 
     return True
