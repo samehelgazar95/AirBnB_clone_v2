@@ -1,16 +1,19 @@
 #!/usr/bin/python3
 """ distributes an archive to your web server """
 from fabric.api import env, put, run
-
+from os.path import isfile
 
 env.hosts = ['100.25.152.65', '52.3.242.252']
 env.user = ['ubuntu', 'ubuntu']
 
 
 def do_deploy(archive_path):
-    """ Do some Sha2labzat and make the deploy"""
+    """ Do some Sha2labzat and make the deploy """
     if archive_path is None:
         return Flase
+
+    if isfile(archive_path) is False:
+        return False
 
     arch_file = archive_path.split('/')[-1]
     arch_name = arch_file.split('.')[0]
