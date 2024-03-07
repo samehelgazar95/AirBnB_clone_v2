@@ -1,8 +1,9 @@
 #!/usr/bin/python3
-""" Hn3mel full deploy """
+""" Create the full deploy in here """
 from fabric.api import env, local, put, run
 from datetime import datetime
 from os.path import isfile
+from glob import glob
 
 
 env.hosts = ['100.25.152.65', '52.3.242.252']
@@ -22,11 +23,11 @@ def do_pack():
     tgz_file = "versions/web_static_{}{}{}{}{}{}.tgz".format(
             n.year, n.month, n.day, n.hour, n.minute, n.second)
 
-    tgz_cmd = "tar -czvf {} web_static".format(tgz_file)
-
-    compress = local(tgz_cmd)
-    if compress.failed:
-        return None
+    if not glob("versions/web_static_*.tgz"):
+        tgz_cmd = "tar -cvzf {} web_static".format(tgz_file)
+        compress = local(tgz_cmd)
+        if compress.failed:
+            return None
 
     return tgz_file
 
@@ -50,7 +51,7 @@ def do_deploy(archive_path):
     if run('mkdir -p /data/web_static/releases/{}'.format(arch_name)).failed:
         return False
 
-    if run('tar -xvzf /tmp/{} -C /data/web_static/releases/{}'.
+    if run('tar -xzf /tmp/{} -C /data/web_static/releases/{}'.
             format(arch_file, arch_name)).failed:
         return False
 
@@ -70,7 +71,7 @@ def do_deploy(archive_path):
     if run('rm -rf /data/web_static/current').failed:
         return False
 
-    if run('ln -sf /data/web_static/releases/{}/ /data/web_static/current'.
+    if run('ln -s /data/web_static/releases/{}/ /data/web_static/current'.
             format(arch_name)).failed:
         return False
 
@@ -79,10 +80,8 @@ def do_deploy(archive_path):
 
 def deploy():
     """ Temp Temp Temp Temp"""
-    # Archiving the web_static files
     pack = do_pack()
     if pack is None:
         return False
 
-    # Deploying the files to servers
     return do_deploy(pack)
