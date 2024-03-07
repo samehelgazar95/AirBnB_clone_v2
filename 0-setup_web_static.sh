@@ -3,13 +3,14 @@
 # It took me almost 5 hours!
 
 
-sudo apt update
+sudo apt -y update
 sudo apt -y install nginx
 
 sudo mkdir -p /data/web_static/releases/test/
 sudo mkdir -p /data/web_static/shared/
 
-echo -p 'Fuck Fabric3==1.14.post1' > /data/web_static/releases/test/index.html
+cd /data/web_static/releases/
+echo 'Yel3an abo el Fabric3==1.14.post1' > index.html
 
 sudo ln -sf  /data/web_static/releases/test/ /data/web_static/current
 
