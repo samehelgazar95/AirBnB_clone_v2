@@ -17,10 +17,10 @@ def do_pack():
     tgz_file = "web_static_{}{}{}{}{}{}.tgz".format(
             n.year, n.month, n.day, n.hour, n.minute, n.second)
 
-    tgz_cmd = "tar -cvzf versions/{} web_static".format(tgz_file)
+    tgz_cmd = "tar -czf versions/{} web_static".format(tgz_file)
 
     compress = local(tgz_cmd)
     if compress.failed:
         return None
-
+   
     return tgz_file
