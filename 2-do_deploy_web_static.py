@@ -35,7 +35,7 @@ def do_deploy(archive_path):
         return False
 
     if run('mv /data/web_static/releases/{}/web_static/* \
-            /data/web_static/releases/{}'.format(arch_name)).failed:
+            /data/web_static/releases/{}/'.format(arch_name)).failed:
         return False
 
     if run('rm -rf /data/web_static/releases/{}/web_static'.
@@ -45,7 +45,7 @@ def do_deploy(archive_path):
     if run('rm -rf /data/web_static/current').failed:
         return False
 
-    if run('ln -sf /data/web_static/releases/{} /data/web_static/current'.
+    if run('ln -sf /data/web_static/releases/{}/ /data/web_static/current'.
             format(arch_name)).failed:
         return False
 
