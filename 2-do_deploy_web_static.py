@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" hn3mel deploy in sha2 allah """
+""" Deploy Module for Web Static Content """
 from os.path import isfile
 from fabric.api import env, put, run
 
