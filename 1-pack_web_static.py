@@ -22,5 +22,5 @@ def do_pack():
     compress = local(tgz_cmd)
     if compress.failed:
         return None
-   
+
     return tgz_file
