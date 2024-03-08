@@ -9,18 +9,13 @@ def do_pack():
         Tab ya 3am yl3an abo el fabric3==1.14.post1
         we mesh hakteb ay arguments
     """
-    versions_dir = local("mkdir -p versions")
-    if versions_dir.failed:
+    try:
+        n = datetime.utcnow()
+        tgz_file = "web_static_{}{}{}{}{}{}.tgz".format(
+                n.year, n.month, n.day, n.hour, n.minute, n.second)
+
+        local("mkdir -p versions")
+        local("tar -cvzf versions/{} web_static".format(tgz_file))
+        return tgz_file
+    except Exception:
         return None
-
-    n = datetime.utcnow()
-    tgz_file = "web_static_{}{}{}{}{}{}.tgz".format(
-            n.year, n.month, n.day, n.hour, n.minute, n.second)
-
-    tgz_cmd = "tar -cvzf versions/{} web_static".format(tgz_file)
-
-    compress = local(tgz_cmd)
-    if compress.failed:
-        return None
-
-    return tgz_file
