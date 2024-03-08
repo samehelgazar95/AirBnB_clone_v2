@@ -39,6 +39,6 @@ def do_deploy(archive_path):
 
         run('sudo ln -sf /data/web_static/releases/{}/'
             '/data/web_static/current'.format(_name))
-        retun True
+        return True
     except Exception:
         return False
