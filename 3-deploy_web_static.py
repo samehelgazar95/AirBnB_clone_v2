@@ -1,11 +1,30 @@
 #!/usr/bin/python3
-""" Deploy Module for Web Static Content """
+""" Do packing and deploying in one step """
 from os.path import exists
-from fabric.api import env, put, run
+from fabric.api import env, local, put, run
+from datetime import datetime
 
 
 env.hosts = ['100.25.152.65', '52.3.242.252']
 env.user = 'ubuntu'
+
+
+def do_pack():
+    """Create a compressed archive of the web static content.
+
+    Returns:
+        str: The file path of the created archive, or None if an error occurs.
+    """
+    try:
+        n = datetime.utcnow()
+        tgz_file = "web_static_{}{}{}{}{}{}.tgz".format(
+                n.year, n.month, n.day, n.hour, n.minute, n.second)
+
+        local("mkdir -p versions")
+        local("tar -cvzf versions/{} web_static".format(tgz_file))
+        return tgz_file
+    except Exception:
+        return None
 
 
 def do_deploy(archive_path):
@@ -39,3 +58,17 @@ def do_deploy(archive_path):
         return True
     except Exception:
         return False
+
+
+def deploy():
+    """Deploy the web static content to remote servers.
+
+    Returns:
+        bool: True if deployment succeeds, False otherwise.
+    """
+    arch_file = do_pack()
+
+    if arch_file is None:
+        return False
+    else:
+        do_deploy(arch_file)
