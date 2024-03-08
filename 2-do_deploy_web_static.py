@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-hn3mel deploy in sha2 allah
-"""
+""" hn3mel deploy in sha2 allah """
 from os.path import isfile
 from fabric.api import env, put, run
 
@@ -11,7 +9,10 @@ env.user = 'ubuntu'
 
 
 def do_deploy(archive_path):
-    """ Do some Sha2labzat and make the deploy """
+    """
+    Do some Sha2labzat and make the deploy
+    Function documentaion
+    """
     if isfile(archive_path) is False:
         return False
 
