@@ -2,7 +2,7 @@
 """ Create the full deploy in here """
 from fabric.api import env, local, put, run
 from datetime import datetime
-from os.path import isfile
+from os.path import isfile, exists
 from glob import glob
 
 
@@ -15,21 +15,19 @@ def do_pack():
         Tab ya 3am yl3an abo el fabric3==1.14.post1
         we mesh hakteb ay arguments
     """
-    versions_dir = local("mkdir -p versions")
-    if versions_dir.failed:
+    if local("mkdir -p versions").failed:
         return None
 
     n = datetime.utcnow()
     tgz_file = "versions/web_static_{}{}{}{}{}{}.tgz".format(
             n.year, n.month, n.day, n.hour, n.minute, n.second)
 
-    if not glob("versions/web_static_*.tgz"):
-        tgz_cmd = "tar -cvzf {} web_static".format(tgz_file)
-        compress = local(tgz_cmd)
-        if compress.failed:
-            return None
-
-    return tgz_file
+    tgz_cmd = "sudo tar -cvzf {} web_static".format(tgz_file)
+    compress = local(tgz_cmd)
+    if compress.failed:
+        return None
+    else:
+        return tgz_file
 
 
 def do_deploy(archive_path):
@@ -81,7 +79,7 @@ def do_deploy(archive_path):
 def deploy():
     """ Temp Temp Temp Temp"""
     pack = do_pack()
-    if pack is None:
+    if exists(pack) is False:
         return False
 
     return do_deploy(pack)
