@@ -77,7 +77,8 @@ def do_deploy(archive_path):
 
 
 def deploy():
-    """ Temp Temp Temp Temp"""
+    """ Temp Temp Temp Temp
+    Temp Temp Temp Temp """
     pack = do_pack()
     if exists(pack) is False:
         return False
