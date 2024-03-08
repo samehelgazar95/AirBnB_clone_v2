@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-# Fabfile to distribute an archive to a web server.
+"""
+hn3mel deploy in sha2 allah
+"""
 from os.path import isfile
 from fabric.api import env, put, run
 
