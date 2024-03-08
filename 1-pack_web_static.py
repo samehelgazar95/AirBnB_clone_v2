@@ -1,13 +1,15 @@
 #!/usr/bin/python3
-"""Yel3an abo el Fabric3==1.14.post1 tany"""
+"""This module provides functions for deploying
+and packing a web application using Fabric."""
 from fabric.api import local
 from datetime import datetime
 
 
 def do_pack():
-    """
-        Tab ya 3am yl3an abo el fabric3==1.14.post1
-        we mesh hakteb ay arguments
+    """Create a compressed archive of the web static content.
+
+    Returns:
+        str: The file path of the created archive, or None if an error occurs.
     """
     try:
         n = datetime.utcnow()
