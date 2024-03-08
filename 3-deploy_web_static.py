@@ -17,11 +17,11 @@ def do_pack():
     """
     try:
         n = datetime.utcnow()
-        tgz_file = "web_static_{}{}{}{}{}{}.tgz".format(
+        tgz_file = "versions/web_static_{}{}{}{}{}{}.tgz".format(
                 n.year, n.month, n.day, n.hour, n.minute, n.second)
 
         local("mkdir -p versions")
-        local("tar -cvzf versions/{} web_static".format(tgz_file))
+        local("tar -cvzf {} web_static".format(tgz_file))
         return tgz_file
     except Exception:
         return None
@@ -45,16 +45,16 @@ def do_deploy(archive_path):
 
     try:
         put(archive_path, '/tmp/')
-        run('mkdir -p {}{}/'.format(path, _name))
-        run('tar -xzf /tmp/{} -C {}{}/'.format(_file, path, _name))
-        run('rm /tmp/{}'.format(_file))
+        run('sudo mkdir -p {}{}/'.format(path, _name))
+        run('sudo tar -xzf /tmp/{} -C {}{}/'.format(_file, path, _name))
+        run('sudo rm /tmp/{}'.format(_file))
 
-        run('mv {0}{1}/web_static/* {0}{1}/'.format(path, _name))
+        run('sudo mv {0}{1}/web_static/* {0}{1}/'.format(path, _name))
 
-        run('rm -rf {}{}/web_static'.format(path, _name))
-        run('rm -rf /data/web_static/current')
+        run('sudo rm -rf {}{}/web_static'.format(path, _name))
+        run('sudo rm -rf /data/web_static/current')
 
-        run('ln -s {}{}/ /data/web_static/current'.format(path, _name))
+        run('sudo ln -s {}{}/ /data/web_static/current'.format(path, _name))
         return True
     except Exception:
         return False
@@ -67,7 +67,6 @@ def deploy():
         bool: True if deployment succeeds, False otherwise.
     """
     arch_file = do_pack()
-
     if arch_file is None:
         return False
     else:
