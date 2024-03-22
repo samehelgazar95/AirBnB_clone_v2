@@ -10,16 +10,16 @@ app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
-""" Creating the home route """
 def home():
+    """ Creating the home route """
     return "Hello HBNB!"
 
+
 @app.route('/hbnb', strict_slashes=False)
-""" Creating the hbnb route """
-def home():
+def hbnb():
+    """ Creating the hbnb route """
     return "HBNB!"
 
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=5000)
- 
