@@ -18,7 +18,7 @@ def home():
 @app.route('/hbnb', strict_slashes=False)
 def hbnb():
     """ Creating the hbnb route """
-    return "HBNB!"
+    return "HBNB"
 
 
 if __name__ == "__main__":
