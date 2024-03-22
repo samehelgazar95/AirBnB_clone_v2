@@ -2,7 +2,7 @@
 from flask import Flask
 """
 Initiate Flask
-- Create route to home /
+- Create route to hbnb /hbnb
 """
 
 
@@ -12,6 +12,10 @@ app = Flask(__name__)
 @app.route('/', strict_slashes=False)
 def home():
     return "Hello HBNB!"
+
+@app.route('/hbnb', strict_slashes=False)
+def home():
+    return "HBNB!"
 
 
 if __name__ == "__main__":
