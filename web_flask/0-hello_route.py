@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
-Initiate Flask
-- Create route to home /
+Start Flask
+Create route to /
 """
 from flask import Flask
 
