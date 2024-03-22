@@ -1,9 +1,9 @@
 #!/usr/bin/python3
-from flask import Flask
 """
 Initiate Flask
 - Create route to hbnb /hbnb
 """
+from flask import Flask
 
 
 app = Flask(__name__)
