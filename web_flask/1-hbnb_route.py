@@ -10,10 +10,12 @@ app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
+""" Creating the home route """
 def home():
     return "Hello HBNB!"
 
 @app.route('/hbnb', strict_slashes=False)
+""" Creating the hbnb route """
 def home():
     return "HBNB!"
 
