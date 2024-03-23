@@ -85,4 +85,5 @@ class FileStorage:
                 FileStorage.__objects[key] = new_obj
 
     def close(self):
+        """ Deserializing the JSON file to objects """
         self.reload()
