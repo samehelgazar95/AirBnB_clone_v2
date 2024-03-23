@@ -83,3 +83,6 @@ class FileStorage:
             if cls_name:
                 new_obj = models_map[cls_name](**val)
                 FileStorage.__objects[key] = new_obj
+
+    def close(self):
+        self.reload()
