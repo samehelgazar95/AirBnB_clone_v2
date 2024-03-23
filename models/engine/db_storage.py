@@ -27,9 +27,9 @@ class DBStorage():
     def __init__(self):
         """
         DBStorage Constructor
-        getting the need variables from the environment to create
-        the database url that's need for creating the database engine
-        and drops all tables if the environment is set to 'test'
+        getting the needed variables from the environment to create
+        the database url that's needed for creating the database engine
+        and drops all tables if HBNB_ENV is set to 'test'
         """
         dialect = 'mysql'
         driver = 'mysqldb'
@@ -95,4 +95,4 @@ class DBStorage():
 
     def close(self):
         """Close the current database session"""
-        self.__session.close()
+        self.__session.remove()
