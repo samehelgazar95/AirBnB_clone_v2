@@ -25,9 +25,9 @@ class BaseModel:
 
     if storage_type == 'db':
         id = Column(String(60), primary_key=True, nullable=False)
-        created_at = Column(DateTime, default=datetime.now(datetime.UTC),
+        created_at = Column(DateTime, default=datetime.utcnow(),
                             nullable=False)
-        updated_at = Column(DateTime, default=datetime.now(datetime.UTC),
+        updated_at = Column(DateTime, default=datetime.utcnow(),
                             nullable=False)
 
     def __init__(self, *args, **kwargs):
