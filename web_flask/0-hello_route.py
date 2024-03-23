@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
 Start Flask
-Create route to /
+- Create route to /
 """
 from flask import Flask
 
