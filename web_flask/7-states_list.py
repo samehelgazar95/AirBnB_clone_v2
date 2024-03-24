@@ -12,6 +12,12 @@ from models.state import State
 app = Flask(__name__)
 
 
+@app.route('/', strict_slashes=False)
+def home():
+    """ route to / """
+    return "Hello HBNB!"
+
+
 @app.route('/states_list', strict_slashes=False)
 def states_cities():
     """ route to /states_list """
