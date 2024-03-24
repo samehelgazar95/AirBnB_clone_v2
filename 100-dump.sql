@@ -223,7 +223,7 @@ CREATE TABLE `users` (
   `first_name` varchar(128) DEFAULT NULL,
   `last_name` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
