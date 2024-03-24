@@ -7,6 +7,7 @@ import models
 
 
 if models.storage_type == 'db':
+    from models.amenity import Amenity;
     place_amenity = Table(
         'place_amenity',
         Base.metadata,
