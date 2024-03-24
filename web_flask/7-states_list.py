@@ -19,7 +19,7 @@ def home():
 
 
 @app.route('/states_list', strict_slashes=False)
-def states_cities():
+def states_list():
     """ route to /states_list """
     states_obj = storage.all(State)
     return render_template('7-states_list.html', states=states_obj)
