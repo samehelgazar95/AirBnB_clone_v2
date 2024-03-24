@@ -7,17 +7,9 @@ Initiate Flask
 from flask import Flask, render_template
 from models import storage
 from models.state import State
-from models.city import City
-from os import getenv
 
 
 app = Flask(__name__)
-
-
-@app.route('/', strict_slashes=False)
-def home():
-    """ route to / """
-    return "Hello HBNB!"
 
 
 @app.route('/cities_by_states', strict_slashes=False)
@@ -36,4 +28,4 @@ def tearing_down(exception=None):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000)
