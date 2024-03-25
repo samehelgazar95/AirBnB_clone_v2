@@ -8,8 +8,7 @@ import models
 
 class State(BaseModel, Base):
     """
-    State class:"
-        |State|---<|City| (One to Many)
+    State class: |State|---<|City| (One to Many)
     """
 
     if models.storage_type == 'db':
